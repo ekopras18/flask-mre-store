@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <h3 class="block-title">
+            设置 <br>
+              <small><i class="fa fa-cogs"></i> 管理员设置</small>
+            </h3>
+          <div class="block block-border-bottom-grey block-pd-sm">
+            {% include 'includes/_messages.html' %}
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-user"></i></a></li>
+              <li><a href="#tab2" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+              <li><a href="#tab3" data-toggle="tab"><i class="fa fa-map-pin"></i></a></li>
+              <li><a href="#tab4" data-toggle="tab"><i class="fa fa-bullhorn"></i></a></li>
+            </ul>
+            <div class="tab-content">
+              {% from "includes/_formhelpers.html" import render_field %}
+              <div class="tab-pane fade in active" id="tab1">
+                <h3 class="block-title">
+                    <small><i class="fa fa-cogs"></i> 通用设置</small>
+                  </h3>
+                  <form enctype="multipart/form-data" action="/setting?about={{adr.id_aa}}" method="post">
+                    <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                      <label>标题</label>
+                      <div class="form-group">
+                        <input type="text" name="title" value="{{adr.title}}" class="form-control" placeholder="标题">
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                      <label>内容</label>
+                      <div class="form-group">
+                        <textarea style="resize: none;" class="form-control" name="content" rows="8" cols="55" placeholder="内容">{{adr.content}}</textarea>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                      <label>动机</label>
+                      <div class="form-group">
+                        <textarea style="resize: none;" class="form-control" name="motive" rows="8" cols="55" placeholder="动机">{{adr.motive}}</textarea>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label>添加照片</label>
+                      <div class="form-group">
+                        <input class="form-control" type="file" required="required" name="picture">
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                      <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                        <i class="fa fa-send-o"></i> 更新</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+              <div class="tab-pane fade" id="tab2">
+                <h3 class="block-title">
+                    <small><i class="fa fa-cogs"></i> 社交媒体</small>
+                  </h3>
+                  <form action="/setting?media={{adr.id_aa}}" method="post">
+                    <div class="col-xs-6 col-md-6">
+                      <div class="form-group">
+                        <div class="form-group">
+                        {{ render_field(form.twitter, class_="form-control", value=adr.twitter, placeholder="https://example.com/username") }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                      <div class="form-group">
+                        <div class="form-group">
+                        {{ render_field(form.facebook, class_="form-control", value=adr.facebook, placeholder="https://example.com/username") }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                      <div class="form-group">
+                        <div class="form-group">
+                        {{ render_field(form.instagram, class_="form-control", value=adr.instagram, placeholder="https://example.com/username") }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                      <div class="form-group">
+                        <div class="form-group">
+                        {{ render_field(form.weixin, class_="form-control", value=adr.weixin, placeholder="https://example.com/username") }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                      <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                        <i class="fa fa-send-o"></i> 更新</button>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+              <div class="tab-pane fade" id="tab3">
+                <h3 class="block-title">
+                    <small><i class="fa fa-cogs"></i> 地址</small>
+                  </h3>
+                {% if adr %}
+                <form action="/setting?address={{adr.id_aa}}" method="post">
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.name, class_="form-control", value=adr.name, placeholder="新名字") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.telp, class_="form-control", value=adr.phonenumber, placeholder="新手机号码") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.email, class_="form-control", value=adr.email, placeholder="新名字") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.address, class_="form-control", value=adr.address, placeholder="新名字") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                    <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                      <i class="fa fa-send-o"></i> 更新</button>
+                    </div>
+                  </div>
+                </form>
+                {% endif %}
+              </div>
+              <div class="tab-pane fade" id="tab4">
+                <h3 class="block-title">
+                    <small><i class="fa fa-cogs"></i> 常见问题</small>
+                  </h3>
+                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            问题 #1
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            问题 #2
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            问题 #3
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+            </div>
+
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/dashboard">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li>
+              <a href="/product">
+                  列出产品
+                  <small>数据产品, 添加产品</small>
+                </a>
+            </li>
+            <li>
+              <a href="/datasales">
+                  销售业绩
+                  <small>销售数据, 概括</small>
+                </a>
+            </li>
+            <li>
+              <a href="/articles">
+                  文章
+                  <small> 文章设定 </small>
+                </a>
+            </li>
+            <li>
+              <a href="/datausers">
+                  所有用户
+                  <small> 查看详情  </small>
+                </a>
+            </li>
+            <li class="active">
+              <a href="/setting" class="first">
+                  设置
+                  <small> 管理员设置，地址，通用设置，提前设定 </small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

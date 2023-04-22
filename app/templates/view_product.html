@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>MRE商店</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <div class="block block-border-bottom-grey block-pd-sm">
+              {% include 'includes/_messages.html' %}
+              {% for product in phoneproduct %}
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="col-lg-8"><h3 class="block-title">{{product.phone}}</h3></div>
+                <div class="col-lg-4">
+                  <center>
+                  <div class="social-media social-media-inline">
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                  </div>
+                </center>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <label> </label>
+                <div class="col-lg-3">
+                    <center>
+            					<a href="#">
+                        <img class="img-responsive " src="static/image/product/{{product.brand}}/{{product.picture}}" alt="">
+            					</a>
+                    </center>
+                  </div>
+                <div class="col-lg-9">
+                  <label></label>
+                  <div class="col-lg-12">
+                    <center>
+                      {% for product_level in product_level %}
+                    <div class="row">
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                      <div class="col-xs-6 col-md-3">
+                        <div class="row">
+                        <b><i class="fa fa-television"></i> Display </b><br>
+                        <p>{{product_level.resolution}} pixels</p>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-md-3">
+                        <div class="row">
+                        <b><i class="fa fa-camera"></i> Camera</b><br>
+                        <p>{{product_level.camera}} MP</p>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-6 col-md-3">
+                        <div class="row">
+                        <b><i class="fa fa-suitcase"></i> Internal-RAM</b><br>
+                        <p>{{product_level.internal}}</p>
+                      </div>
+                      </div>
+
+                      <div class="col-xs-6 col-md-3">
+                        <div class="row">
+                        <b><i class="fa fa-suitcase"></i> Battery</b><br>
+                        <p>{{product_level.battery}}</p>
+                      </div>
+
+                      </div>
+                    </div>
+                  </div>
+                    </div>
+                  </center>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <small><center>
+                    <div class="row">
+                      <div class="col-xs-4 col-md-4">
+                        <div class="box-body">
+                          <dl>
+                            <dt>Available</dt>
+                            <dd>{{product.available}} Unit</dd>
+                            <dt>Price</dt>
+                            <dd>¥ {{product.price}}</dd>
+                            <dt>Colors</dt>
+                            <dd>{{product_level.colors}}</dd>
+                          </dl>
+                        </div><!-- /.box-body -->
+
+                      </div>
+                      <div class="col-xs-4 col-md-4">
+                        <div class="box-body">
+                          <dl>
+                            <dt>Network</dt>
+                            <dd>{{product_level.network}}</dd>
+                            <dt>Announced </dt>
+                            <dd>{{product_level.announced}}</dd>
+                            <dt>Status</dt>
+                            <dd>{{product_level.status}}</dd>
+                          </dl>
+                        </div>
+                      </div>
+                      <div class="col-xs-4 col-md-4">
+                        <div class="box-body">
+                          <dl>
+                            <dt>Dimensions</dt>
+                            <dd>{{product_level.dimensions}}</dd>
+                            <dt>Weight</dt>
+                            <dd>{{product_level.weight}}</dd>
+                          </dl>
+                        </div>
+                      </div>
+                    </div>
+                  </center>
+                  </small>
+                  </div>
+                  <div class="col-lg-12">
+                  <div class="col-xs-6 col-md-9">
+                    <label><b>Description</b></label>
+                      <p>{{product.description | truncate(150) | safe}}</p>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="/addToCart?add={{product.id_phone}}" class="btn btn-more large"><i class="fa fa-cart-plus"></i>¥ {{product.price}}</a>
+                  </div>
+                </div>
+                {% endfor %}
+              {% endfor %}
+
+
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  {% if x == '' %}
+                  <h2 class="mb-4">No similar product found</h2>
+                  {% else %}
+                    {% for product in x[0] %}
+                      <p>Harga : </p>{{product.price}} sama {{product.phone}}
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/viewproduct" class="first">
+                  <b><i class="fa fa-angle-left"></i></b> 返回
+                  <small>去产品</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

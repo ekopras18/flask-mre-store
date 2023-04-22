@@ -1,0 +1,121 @@
+<div id="navigation" class="wrapper">
+
+	<div class="header">
+		<div class="header-inner container">
+			<div class="row">
+				<div class="col-md-8">
+					<!--navbar-branding/logo - hidden image tag & site name so things like Facebook to pick up, actual logo set via CSS for flexibility -->
+					<a class="navbar-brand" href="/" title="Home">
+						<span class="text-primary">
+						<b>MRE</b></span>
+						<br><b>商店</b>
+					</a>
+					<a href="/" title="Home">
+					<div class="navbar-slogan">
+						<b>Welcome to mrestore</b>
+						<br> By ekopras18
+					</div>
+					</a>
+				</div>
+				<!--header rightside-->
+				<div class="col-md-4">
+					<!--user menu-->
+
+					<ul class="list-inline user-menu pull-right">
+						{% if session.type == 0 %}
+						<li class="user-register"><i class="fa fa-dashboard text-primary "></i> <a href="/user/{{session.username}}" class="text-uppercase">管理员</a></li>
+						<li class="user-logout"><i class="fa fa-sign-out text-primary"></i> <a href="/logout" class="text-uppercase">登出</a></li>
+						{% elif session.type == 1 %}
+						<li class="user-register"><i class="fa fa-dashboard text-primary "></i> <a href="/dashboard" class="text-uppercase">管理员</a></li>
+						<li class="user-logout"><i class="fa fa-sign-out text-primary"></i> <a href="/logout" class="text-uppercase">登出</a></li>
+						{% else %}
+						<li class="user-register"><i class="fa fa-edit text-primary "></i> <a href="/register" class="text-uppercase">注册</a></li>
+						<li class="user-login"><i class="fa fa-sign-in text-primary"></i> <a href="/login" class="text-uppercase">登录</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="navbar navbar-default">
+			<!--mobile collapse menu button-->
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<div class="navbar-text social-media social-media-inline pull-right" style='padding-right: 2%;'>
+				{% if session.type == 1 %}
+				<a href="/dashboard" class="btn btn-more i-left">
+					<i class="fa fa-list-ol text-primary"><small><span class="badge badge-primary">{{order}}</span></small></i>
+				</a>
+				{% else %}
+				<a href="/cart" class="btn btn-more i-left">
+					<i class="fa fa-shopping-cart text-primary"><small><span class="badge badge-primary">{{noOfItems}}</span></small></i>
+				</a>
+				{% endif %}
+			</div>
+			<!--everything within this div is collapsed on mobile-->
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav" id="main-menu">
+					<li class="icon-link">
+						<a href="/"><i class="fa fa-home"></i></a>
+					</li>
+					{% if session.type == 1 %}
+					<li class="dropdown dropdown-mm">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a>
+						<!-- Dropdown Menu -->
+						<ul class="dropdown-menu dropdown-menu-mm dropdown-menu-persist">
+							<li class="row">
+								<ul class="col-md-6">
+									<li class="dropdown-header">管理员</li>
+									<a href="/dashboard">管理中心</a>
+								</ul>
+								<ul class="col-md-6">
+										<li class="dropdown-header">列出产品</li>
+										<a href="/product">数据产品, 添加产品</a>
+								</ul>
+								<ul class="col-md-6">
+									<li class="dropdown-header">销售业绩</li>
+									<a href="/datasales">销售数据, 概括</a>
+								</ul>
+								<ul class="col-md-6">
+									<li class="dropdown-header">文章</li>
+									<a href="/articles">文章设定</a>
+								</ul>
+							</li>
+							<li class="dropdown-footer">
+								<div class="row">
+									<div class="col-md-7"> 管理员设置，地址，通用设置，提前设定 </div>
+									<div class="col-md-5">
+										<a href="/setting" class="btn btn-more btn-lg pull-right"><i class="fa fa-cogs"></i>设置</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					{% elif session.type == 0 %}
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a>
+						<!-- Dropdown Menu -->
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">管理员 </li>
+							<li><a href="/dashboard" tabindex="-1" class="menu-item">仪表盘</a></li>
+							<li><a href="/user/{{session.username}}" tabindex="-1" class="menu-item">我的命令</a></li>
+							<li class="dropdown-footer">
+								<div class="row">
+									<div class="col-md-12">
+										<a href="/setting/user?user={{session.uid}}" class="btn btn-more btn-sm pull-right"><i class="fa fa-cogs"></i>Settings</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</li>
+					{% endif %}
+					<li><a href="/viewproduct">可用的产品</a></li>
+					<li><a href="/faq">常见问题</a></li>
+					<li><a href="/about">关于</a></li>
+
+				</ul>
+			</div>
+			<!--/.navbar-collapse -->
+		</div>
+	</div>
+</div>

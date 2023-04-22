@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <h3 class="block-title">
+                编辑产品！<br>
+                <small>更新你的产品</small>
+              </h3>
+              {% include 'includes/_messages.html' %}
+              {% for product_phone in product_phone%}
+              <form role="form" action="/edit-product?id={{product_phone.id_phone}}" method="post">
+              <div class="row">
+                <div class="col-lg-4">
+                    <label>品牌</label>
+                    <div class="form-group">
+                      <input value="{{product_phone.brand}}" class="form-control" name="brand" placeholder="输入品牌">
+                      </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>其他品牌</label>
+                    <div class="input-group">
+                      <input disabled class="form-control" name="obrand" placeholder="输入其他品牌">
+                      <span class="input-group-addon"><a href="#" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="如果没有品牌，请填写此处" title="其他品牌！"><i class="fa fa-fw fa-info-circle"></i></a></span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                      <label>可得到</label>
+                      <input type="number" value="{{product_phone.available}}" class="form-control" required="required" name="available" placeholder="输入可得到">
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                      <label>产品名称</label>
+                      <input value="{{product_phone.phone}}" class="form-control" required="required" name="phone" placeholder="输入产品名称">
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <label>价钱</label>
+                  <div class="input-group"><span class="input-group-addon">
+                      <i class="fa fa-fw fa-jpy"></i></span>
+                      <input value="{{product_phone.price}}" class="form-control" required="required" name="price" placeholder="输入价钱 Ex: 8.888 ">
+                  </div>
+                </div>
+                {% for product_phone_level in product_phone_level%}
+                <div class="col-lg-4">
+                  <div class="form-group">
+                      <label>颜色</label>
+                      <input value="{{product_phone_level.colors}}" class="form-control" required="required" name="colors" placeholder="输入颜色 Ex: Black,White">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>相机</label>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.camera}}" type="number" class="form-control" required="required" name="camera" placeholder="输入相机 Ex: 10 MP">
+                      <span class="input-group-addon">MP</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>内部存储器</label>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.internal}}" class="form-control" required="required" name="internal" placeholder="输入内部存储器 Ex: 64/256 GB - 3GB RAM">
+                      <span class="input-group-addon">GB-RAM</span>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <label>描写</label>
+                  <div class="form-group">
+                      <textarea style="resize: none;" class="form-control" required="required" name="description" rows="3"
+                                placeholder="写产品说明">{{product_phone.description}}</textarea>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>网络</label>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.network}}" class="form-control" required="required" name="network" placeholder="输入网络 Ex: 5G/4G/3G/2G/GPRS/Edge">
+                      <span class="input-group-addon">5G/4G/3G/2G</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label>电池</label>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.battery}}" class="form-control" required="required" name="battery" placeholder="输入电池 Ex: 2.716 mAh">
+                      <span class="input-group-addon">mAh</span>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <label>开展</label>
+                </div>
+                <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <p>公布</p>
+                  <div class="form-group">
+                    <input value="{{product_phone_level.announced}}" type="date" class="form-control" required="required" name="announced">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <p>状态</p>
+                  <div class="form-group">
+                    <input value="{{product_phone_level.status}}" class="form-control" required="required" name="status" placeholder="输入状态 Ex: Available,Discontinued,Cancelled">
+                  </div>
+                </div>
+                </div>
+                <div class="col-lg-12">
+                  <label>机身</label>
+                </div>
+                <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <p>外形尺寸</p>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.dimensions}}" class="form-control" required="required" name="dimensions" placeholder="输入外形尺寸 Ex: 143.6 x 70.9 x 7.7 mm" aria-describedby="basic-addon2">
+                      <span class="input-group-addon">mm</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <p>重量</p>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.weight}}" type="number" class="form-control" required="required" name="weight" placeholder="输入重量 Ex: 174 g">
+                      <span class="input-group-addon">g</span>
+                  </div>
+                </div>
+                </div>
+                <div class="col-lg-12">
+                  <label>显示</label>
+                </div>
+                <div class="col-lg-12">
+                <div class="col-lg-6">
+                  <p>尺寸</p>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.size}}" class="form-control" required="required" name="size" placeholder="输入尺寸 Ex: 5 / 5.8 Inches">
+                      <span class="input-group-addon">Inches</span>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <p>决议案</p>
+                  <div class="input-group">
+                      <input value="{{product_phone_level.resolution}}" class="form-control" required="required" name="resolution" placeholder="输入决议案 Ex: 1125 x 2436 pixels">
+                      <span class="input-group-addon">pixels</span>
+                  </div>
+                </div>
+                </div>
+                <div class="col-lg-12">
+                  <label> </label>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-send-o"></i> 编辑产品</button>
+                </div>
+              </div>
+              </form>
+                {% endfor %}
+              {% endfor %}
+            </div>
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/product">
+                  <b><i class="fa fa-angle-left"></i></b> 退回
+                  <small>去产品</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

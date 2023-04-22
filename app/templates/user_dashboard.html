@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <meta http-equiv=refresh content=60; >
+ {% include "head.html" %}
+</head>
+
+<!-- ======== @Region: body ======== -->
+
+<body class="page-about">
+  <!--Change the background class to alter background image, options are: benches, boots, buildings, city, metro -->
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+
+    <!-- ======== @Region: #navigation ======== -->
+    {% include "navbar.html" %}
+  </div>
+
+  <!-- ======== @Region: #content ======== -->
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <!-- <div class="page-header"> -->
+            <h3 class="block-title">
+                管理员
+                <small>欢迎回来 <a href="/user/{{session.username}}?user={{session.uid}}" data-toggle="tooltip" data-placement="top" title="你好吗!"> {{session.username}} </a></small>
+              </h3>
+          <!-- </div> -->
+          <div class="block block-border-bottom-grey block-pd-sm">
+            {% include 'includes/_messages.html' %}
+              <div class="row">
+                <div class="col-xs-12 col-md-4">
+                  <div class="panel panel-default">
+                    <div class="panel-body ">
+                      <a href="#orders"><h3 class="block-title"><b>命令</b></h3></a>
+                      <small> 你有 <span data-counter-up>{{o}}</span> 个订单</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="panel panel-default">
+                    <div class="panel-body ">
+                      <a href="/cart"><h3 class="block-title"><b>购物车</b></h3></a>
+                      <small>你有 <span data-counter-up>{{noOfItems}}</span> 购物车</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <div class="panel panel-default">
+                    <div class="panel-body ">
+                      <a href="/setting/user?user={{session.uid}}"><h3 class="block-title"><b>设置</b></h3></a>
+                      <small>地址和高级设置</small>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-push-3">
+              <h3 class="block-title"><b>我的命令</b></h3>
+              <table id="orders" class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>代码订单</th>
+                    <th>名称产品</th>
+                    <th>待遇</th>
+                    <th>价钱</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for orders in orders %}
+                  <tr>
+                    <td><a href="/viewproduct?view={{orders.id_phone}}">{{orders.id_orders}}</a></td>
+                    <td>{{orders.phone}}</td>
+                    {% if orders.status == '' %}
+                    <td><center><button type="button" class="btn btn-xs btn-warning"><i class="fa fa-exclamation-circle"> 不付钱</i></button></center></td>
+                    {% elif orders.status == 'cancel' %}
+                    <td><center><button type="button" class="btn btn-xs btn-inverse"><i class="fa fa-reply"> 取消</i></button></center></td>
+                    {% elif orders.status == 'confirm' %}
+                    <td><center><button type="button" class="btn btn-xs btn-success"><i class="fa fa-tags"> 确认</i></button></center></td>
+                    {% else %}
+                    <td><center><button type="button" class="btn btn-xs btn-info"><i class="fa fa-{{orders.status}}-circle-o"> 付款</i></button></center></td>
+                    {% endif %}
+                    <td>¥ {{orders.price}}</td>
+                    <td><center>
+                      {% if orders.status == 'check' %}
+                          <a href="/user/{{session.username}}?cancel={{orders.id_orders}}">
+                          <button type="submit" class="btn btn-xs btn-danger">
+                            <i class="fa fa-reply"> 退</i>
+                          </button></a>
+                          {% else %}
+                          <a href="/user/{{session.username}}?delete={{orders.id_orders}}">
+                          <button type="submit" class="btn btn-xs btn-danger">
+                            <i class="fa fa-trash"> 删除</i>
+                          </button></a>
+                          {% endif %}
+                      </center>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                      <th colspan="2"><h4><b>总价</b></h4><small>日期订单 : {{d}}</small></th>
+                      <th><center>
+                        {% if cn == 'confirm' %}
+                        <a href="/user/{{session.username}}?confirm={{session.uid}}">
+                          <button type="button" class="btn btn-xs btn-primary"><i class="fa fa-check-square"> 确认收货</i></button>
+                        </a>
+                        {% elif cn == '' %}
+                        {% else %}
+                          <small>等待确认中</small>
+                        {% endif %}
+                      </center></th>
+                      <th colspan="2"><h4><small><b>¥ {{totalPrice}}</b></small></h4></th>
+                  </tr>
+                </tfoot>
+              </table>
+
+            </div>
+
+            </div>
+
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+              <a href="/user/{{session.username}}" class="first">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li>
+              <a href="/setting/user?user={{session.uid}}">
+                  设置
+                  <small>地址和高级设置</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

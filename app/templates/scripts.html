@@ -1,0 +1,39 @@
+<!-- Required JavaScript Libraries -->
+<script src="{{url_for('static', filename='jquery/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='owlcarousel/owl.carousel.min.js')}}"></script>
+<script src="{{url_for('static', filename='stellar/stellar.min.js')}}"></script>
+<script src="{{url_for('static', filename='waypoints/waypoints.min.js')}}"></script>
+<script src="{{url_for('static', filename='counterup/counterup.min.js')}}"></script>
+<script src="{{url_for('static', filename='contactform/contactform.js')}}"></script>
+
+<!-- Template Specisifc Custom Javascript File -->
+<script src="{{url_for('static', filename='js/custom.js')}}"></script>
+<!--Custom scripts demo background & colour switcher - OPTIONAL -->
+<script src="{{url_for('static', filename='js/color-switcher.js')}}"></script>
+
+<!--Contactform script -->
+<script src="{{url_for('static', filename='contactform/contactform.js')}}"></script>
+<!-- standard,basic dan full -->
+<script src="//cdn.ckeditor.com/4.11.1/basic/ckeditor.js"></script>
+<script type="text/javascript">CKEDITOR.replace('editor');</script>
+<!-- Datatables -->
+<script src="{{url_for('static', filename='datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url_for('static', filename='datatables/dataTables.bootstrap.min.js')}}"></script>
+<script>
+  $(function () {
+    $("#product").DataTable();
+  });
+  $(function () {
+    $("#orders").DataTable();
+  });
+</script>
+<script src="{{url_for('static', filename='js/multi-step-modal.js')}}"></script>
+<script>
+sendEvent = function(sel, step) {
+    $(sel).trigger('next.m.' + step);
+}
+sendEvent = function(sel, step) {
+    $(sel).trigger('next.m.' + step);
+}
+</script>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <div class="row">
+          <div class="col-xs-6 col-md-10">
+            <h2>
+                所有用户 <br>
+                   <small> <i class="fa fa-user"></i> 管理您的用户 </small>
+            </h2>
+          </div>
+          <div class="col-xs-6 col-md-2">
+            <div class="page-header pull-right" style="border-bottom: none">
+            <a class="btn btn-primary" href="/addusers"><i class="fa fa-user-plus"></i> 添加管理员</a>
+          </div>
+          </div>
+        </div>
+          <div class="block block-border-bottom-grey block-pd-sm">
+            {% include 'includes/_messages.html' %}
+            <div class="col-md-12 table-responsive">
+            <table id="product" class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>类型</th>
+                  <th>用户</th>
+                  <th>电子邮件</th>
+                  <th>手机号码</th>
+                  <th>地址</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for users in users%}
+                <tr>
+                  {% if users.type == 1 %}
+                  <td><b>管理员</b></td>
+                  {% else %}
+                  <td><b>用户</b></td>
+                  {% endif %}
+                  <td>{{users.username}}</td>
+                  <td>{{users.email}}</td>
+                  <td>{{users.phonenumber}}</td>
+                  <td>{{users.provinces}}-{{users.city}}-{{users.region}}-{{users.street}}</td>
+                  <td>
+                    <div class="row">
+                         <div class="col-lg-12">
+                           {% if users.type == 1 %}
+                          <a href="#" class="btn btn-xs btn-inverse"><i class="fa fa-user-secret"></i></a>
+                          <a href="/datausers?edit={{users.id}}" class="btn btn-xs btn-default"><i class="fa fa-pencil-square"></i></a>
+                          {% else %}
+                          <a href="#" class="btn btn-xs btn-default"><i class="fa fa-user-secret"></i></a>
+                          {% endif %}
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+            </div>
+
+            </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/dashboard">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li>
+              <a href="/product">
+                  列出产品
+                  <small>数据产品, 添加产品</small>
+                </a>
+            </li>
+            <li>
+              <a href="/datasales">
+                  销售业绩
+                  <small>销售数据, 概括</small>
+                </a>
+            </li>
+            <li>
+              <a href="/articles">
+                  文章
+                  <small> 文章设定 </small>
+                </a>
+            </li>
+            <li class="active">
+              <a href="/datausers" class="first">
+                  所有用户
+                  <small> 查看详情  </small>
+                </a>
+            </li>
+            <li>
+              <a href="/setting">
+                  设置
+                  <small> 管理员设置，地址，通用设置，提前设定 </small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

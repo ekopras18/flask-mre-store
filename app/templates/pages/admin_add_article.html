@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+
+<!-- ======== @Region: body ======== -->
+
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <h3 class="block-title">
+                添加文章！<br>
+                <small>文章在这里</small>
+              </h3>
+
+              <div class="form">
+                <div id="sendmessage">{% include 'includes/_messages.html' %}</div>
+                <div id="errormessage">{% from "includes/_formhelpers.html" import render_field %}</div>
+                <form action="/add-article" method="post" role="form">
+                  <div class="form-group">
+                    <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                      {{ render_field(form.title, class_="form-control", placeholder="标题") }}
+                  </div>
+                </div>
+                  <div class="form-group">
+                    {{ render_field(form.body, class_="form-control", id="editor", placeholder="内容") }}
+                  </div>
+                  <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                    <i class="fa fa-send-o"></i> 发帖</button></div>
+                </form>
+              </div>
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/dashboard">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li>
+              <a href="/product">
+                  列出产品
+                  <small>数据产品, 添加产品</small>
+                </a>
+            </li>
+            <li>
+              <a href="#">
+                  销售业绩
+                  <small>销售数据, 概括</small>
+                </a>
+            </li>
+            <li class="active">
+              <a href="/articles" class="first">
+                  文章
+                  <small> 文章设定 </small>
+                </a>
+            </li>
+            <li>
+              <a href="/datausers">
+                  所有用户
+                  <small> 查看详情  </small>
+                </a>
+            </li>
+            <li>
+              <a href="/setting">
+                  设置
+                  <small> 管理员设置，地址，通用设置，提前设定 </small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

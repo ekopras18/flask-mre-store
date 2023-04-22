@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>登录 - MRE商店</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+	<!-- INCLUDE HEAD -->
+  {% include 'head.html' %}
+</head>
+
+<!-- ======== @Region: body ======== -->
+
+<body class="fullscreen-centered page-login">
+  <!--Change the background class to alter background image, options are: benches, boots, buildings, city, metro -->
+  <div id="background-wrapper" class="benches" data-stellar-background-ratio="0.8">
+
+    <!-- ======== @Region: #content ======== -->
+    <div id="content">
+      <div class="header">
+        <div class="header-inner">
+          <!--navbar-branding/logo - hidden image tag & site name so things like Facebook to pick up, actual logo set via CSS for flexibility -->
+          <!-- <a class="navbar-brand center-block" href="/" title="Home">
+            <h1 class="hidden">
+                <img src="{{url_for('static', filename='img/logo.png')}}">
+                Mre商店
+              </h1>
+          </a> -->
+          <center><a href="/"><h3>MRE商店</h3></a></center>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                  登录
+                </h3>
+            </div>
+            <div class="panel-body">
+              <form accept-charset="UTF-8" role="form" method="POST" action="/login">
+                {% include 'includes/_messages.html' %}
+                <fieldset>
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                      <input type="text" name="email" class="form-control" placeholder="电子邮件" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+                      <input type="password" class="form-control" name="password" placeholder="密码" required>
+                    </div>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input name="remember" type="checkbox" value="Remember Me">
+                      记住账号
+                      </label>
+                  </div>
+                  <input class="btn btn-lg btn-primary btn-block" type="submit" value="登录">
+                </fieldset>
+              </form>
+              <p class="m-b-0 m-t">没有注册？ <a href="/register">在此注册。</a></p>
+              <div class="credits">
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+  </div>
+  <!-- Required JavaScript Libraries -->
+	<!-- INCLUDE SCRIPT -->
+  {% include 'scripts.html' %}
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <div class="row">
+    <div class="col-sm-12">
+      <!-- <div class="page-header"> -->
+      <h2 class="block-title">
+        销售业绩
+        <small>销售数据</small>
+        </h2>
+      <!-- </div> -->
+    </div>
+  </div>
+  <div class="block block-border-bottom-grey block-pd-sm">
+    <h4 class="block-title">
+        <b>支付货款, 支付宝 & 微信</b>
+    </h4>
+    <table id="orders" class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>用户名</th>
+          <th>付款</th>
+          <th>用户号</th>
+          <th>总量</th>
+          <th>日期</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pay in pay%}
+        <tr>
+          <td>{{pay.username}}</td>
+          <td>{{pay.methods}}</td>
+          <td>{{pay.id_users}}</td>
+          <td>¥ {{pay.total}}</td>
+          <td>{{pay.date.strftime("%b %d %Y")}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table><br>
+          <h4 class="block-title">
+              <b>确认收货</b>
+          </h4>
+          <table id="product" class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>收据号</th>
+                <th>用户名</th>
+                <th>序列号</th>
+                <th>产品名称</th>
+                <th>总计</th>
+                <th>状况</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for orders in orders%}
+              <tr>
+                <td>{{orders.id_receipt}}</td>
+                <td>{{orders.username}}</td>
+                <td>{{orders.id_orders}}-{{orders.id_users}}-{{orders.id_phone}}</td>
+                <td><a href="/viewproduct?view={{orders.id_phone}}">{{orders.phone}}</a></td>
+                <td>¥ {{orders.price}}</td>
+                <td>
+                  <div class="row">
+                       <div class="col-lg-12">
+                        {% if orders.status == 'confirm' %}
+                        <a href="" class="btn btn-xs btn-success"><i class="fa fa-get-pocket"></i></a>
+                        <a href="/datasales?print={{orders.id_users}}" target="_blank" class="btn btn-xs btn-default"><i class="fa fa-print"></i></a>
+                        {% else %}
+                        <a href="/orders" class="btn btn-xs btn-primary"><i class="fa fa-get-pocket"></i></a>
+                        {% endif %}
+                      </div>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <div class="col-md-6">
+            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+              注意 ：<br> <i class="fa fa-get-pocket btn btn-xs btn-success"></i> : 确认收货 <br>
+              <i class="fa fa-get-pocket btn btn-xs btn-primary"></i> : 没有确认
+            </p>
+          </div>
+
+    </div>
+
+    </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/dashboard">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li>
+              <a href="/product">
+                  列出产品
+                  <small>数据产品, 添加产品</small>
+                </a>
+            </li>
+            <li class="active">
+              <a href="/datasales" class="first">
+                  销售业绩
+                  <small>销售数据, 概括</small>
+                </a>
+            </li>
+            <li>
+              <a href="/articles">
+                  文章
+                  <small> 文章设定 </small>
+                </a>
+            </li>
+            <li>
+              <a href="/datausers">
+                  所有用户
+                  <small> 查看详情  </small>
+                </a>
+            </li>
+            <li>
+              <a href="/setting">
+                  设置
+                  <small> 管理员设置，地址，通用设置，提前设定 </small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

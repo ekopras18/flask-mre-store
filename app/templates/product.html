@@ -1,0 +1,58 @@
+<!--Showcase services block block-bg-gradient block-border-bottom-->
+
+<div class="showcase block block-bg-gradient block-border-bottom">
+	<div class="container">
+		<h2 class="block-title">
+			显示产品
+			</h2>
+		<h4><small>产品推荐 ：</small></h4>
+		<div class="card-columns">
+		<div class="row">
+			{% for product in product %}
+			<div class="col-xs-6 col-md-3">
+				<!-- <div class="thumbnail "> -->
+					<a href="/viewproduct?view={{product.id_phone}}">
+							<div class="img-responsive underlay card-img-top id_{{product.id_phone}}"
+									 style="background: url('static/image/product/{{product.brand}}/{{product.picture}}'); background-repeat:no-repeat; background-size: cover; height:150px;width: auto; ">
+								 </div>
+					</a>
+					<!-- <a href="/{{product.brand}}?view={{product.id_phone}}" class="overlay-wrapper">
+							<img src="{{url_for('static', filename='image/product/'+product.brand+'/'+product.picture)}}" class="img-responsive underlay">
+							<span class="overlay">
+								<span class="overlay-content"> <span class="h4">Project 2 </span> </span>
+							</span>
+						</a> -->
+					<div class="caption">
+						<a href="/viewproduct?view={{product.id_phone}}"><h5><b>{{product.phone}}</b></h5></a>
+						<small><p>{{product.description | truncate(27) | safe}}</p></small>
+						<p><a href="/addToCart?add={{product.id_phone}}" class="btn btn-more large"><small><i class="fa fa-cart-plus"></i>¥ {{product.price}}</small></a></p>
+					</div>
+				<!-- </div> -->
+			</div>
+			{% endfor %}
+		</div>
+		</div><h3 class="block-title text-uppercase">
+				新品牌
+			</h3>
+		<div class="item-carousel" data-toggle="owlcarousel" data-owlcarousel-settings='{"items":3, "pagination":false, "navigation":true, "itemsScaleUp":true}'>
+			{% for brand in brand %}
+			<div class="item">
+				<a href="/viewproduct?brand={{brand.brand}}" class="overlay-wrapper">
+							<div class="img-responsive underlay card-img-top"
+									 style="background: url('static/image/product/{{brand.brand}}/{{brand.picture}}'); background-repeat:no-repeat; background-size: cover; height:200px;width: 350px; ">
+								 </div>
+							<span class="overlay">
+							<span class="overlay-content"> <span class="h4">Hot New Brand</span> </span>
+						</span>
+					</a>
+				<div class="item-details bg-noise">
+					<h4 class="item-title">
+							<a href="#">{{brand.brand}}</a>
+						</h4>
+					<a href="/viewproduct?brand={{brand.brand}}" class="btn btn-more"><i class="fa fa-arrow-right"></i>查看所有产品</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

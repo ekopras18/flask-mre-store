@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MRE商店</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <link rel="shortcut icon" href="{{url_for('static', filename='img/icons/favicon.png')}}">
+	{% include "head.html" %}
+</head>
+<body class="page-index has-hero">
+  <!--Change the background class to alter background image, options are: benches, boots, buildings, city, metro -->
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.1">
+    <!-- ======== @Region: #navigation ======== -->
+    {% include "navbar.html" %}
+
+    <div class="hero" id="highlighted">
+      <div class="inner">
+        <!--Slideshow-->
+        <div id="highlighted-slider" class="container">
+          <div class="item-slider" data-toggle="owlcarousel" data-owlcarousel-settings='{"singleItem":true, "navigation":false, "transitionStyle":"fadeUp"}'>
+            <!--Slideshow content-->
+            <!--Slide 1-->
+            <div class="item">
+              <div class="row">
+                <div class="col-md-5 col-md-push-6 item-caption">
+                  <h4 class="h2 text-weight-light">
+                      欢迎来到<span class="text-primary"> Mre 商店</span>
+                    </h4>
+                     <h4><small>Iphone, Samsung, Xiaomi, Oppo, vivo 等等。</small></h4> <!-- Visitor : {{count}} -->
+                    <form action="/products/search" method="get">
+                      <input class="search_input" type="text" name="q" placeholder="搜索..">
+                    </form>
+                    <br>
+                  <h4><small>感谢您访问我们的网站</small></h4>
+                  {% if session.type == 1 %}
+                  {% elif session.type == 0 %}
+                  {% else %}
+                  <a href="#" class="btn btn-more btn-sm i-right">现在注册<i class="fa fa-edit"></i></a>
+                  {% endif %}
+                </div>
+                <div class="col-md-7 col-md-pull-6 hidden-xs">
+                  <img src="{{url_for('static', filename='img/slides/slide1.png')}}" alt="Slide 1" class="center-block img-responsive">
+                </div>
+              </div>
+            </div>
+            <!--Slide 2-->
+            <div class="item">
+              <div class="row">
+                <div class="col-md-6 text-right-md item-caption">
+                  <h2 class="h2 text-weight-light">
+                      <span class="text-primary">Mre 商店</span> 买买手机
+                    </h2>
+                  <h4>
+                      High quality, responsive theme!
+                    </h4>
+                  <p>Perfect for your App, Web service, company or portfolio! Magna tincidunt sociis ac integer amet non. Rhoncus augue? Tempor porttitor sed, aliquet phasellus a, nisi nunc aliquet nec rhoncus enim porttitor ultrices lacus tristique?</p>
+                  <a href="#" class="btn btn-more btn-sm"><i class="fa fa-plus"></i> Learn More</a>
+                </div>
+                <div class="col-md-6 hidden-xs">
+                  <img src="{{url_for('static', filename='img/slides/slide2.png')}}" alt="Slide 2" class="center-block img-responsive">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== @Region: #content ======== -->
+	<div id="content">
+
+    <!--Showcase services block block-bg-gradient block-border-bottom-->
+    <!-- INCLUDE PRODUCT -->
+    {% include "product.html" %}
+
+    <!--Customer testimonial & Latest Blog posts-->
+    <div class="testimonials block-contained">
+      <div class="row">
+        <!--Customer testimonial-->
+        <div class="col-md-6 m-b-lg">
+          <h3 class="block-title">
+              褒奖
+            </h3>
+          <blockquote>
+            <p>Our productivity &amp; sales are up! Customers are happy &amp; we couldn't be happier with this product!</p>
+            <img src="{{url_for('static', filename='img/misc/charles-quote.png')}}" alt="Charles Spencer Chaplin">
+            <small>
+                <strong>黄</strong>
+                <br>
+                25-Feb-2019
+              </small>
+          </blockquote>
+        </div>
+        <!--Latest Blog posts-->
+        <div class="col-md-6 blog-roll">
+          <h3 class="block-title">
+              我们的博客最新消息
+            </h3>
+          <!-- Blog post 1-->
+          {% for article in articles %}
+          <div class="media">
+            <div class="media-left hidden-xs">
+              <!-- Date desktop -->
+              <div class="date-wrapper"> <span class="date-m">{{article.create_date.strftime("%b")}}</span> <span class="date-d">{{article.create_date.strftime("%d")}}</span> </div>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">
+                  <a href="/article/{{article.title}}" class="text-weight-strong">{{article.title}}</a>
+                </h4>
+              <!-- Meta details mobile -->
+              <ul class="list-inline meta text-muted visible-xs">
+                <li><i class="fa fa-calendar"></i> <span class="visible-md">Created:</span> {{article.create_date.strftime("%b %d %Y - %H:%M:%S %p")}}</li>
+                <li><i class="fa fa-user"></i> <a href="#"> {{article.author}}</a></li>
+              </ul>
+              <p>
+                {{article.body  | truncate(200) | safe}}
+                <a href="/article/{{article.title}}">Read more <i class="fa fa-angle-right"></i></a>
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!--
+Background image callout with CSS overlay
+Usage: data-block-bg-img="IMAGE-URL" to apply a background image clearly via jQuery .block-bg-overlay = overlays the background image, colour is inherited from block-bg-* classes .block-bg-overlay-NUMBER = determines opcacity value of overlay from 1-9 (default is 5) ie. .block-bg-overlay-2 or .block-bg-overlay-6
+-->
+
+  </div>
+<!-- /content -->
+<!-- INCLUDE FOOTER -->
+{% include "footer.html" %}
+<!-- Required JavaScript Libraries -->
+<!-- INCLUDE SCRIPT -->
+{% include "scripts.html" %}
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>赔率</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <form class="modal multi-step" action="{{ url_for('alipay') }}" method="POST" id="demo-modal-1">
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title step-1" data-step="1"><i class="fa fa-qrcode"></i> 支付宝</h4>
+                          <h4 class="modal-title step-2" data-step="2">确认用户</h4>
+                      </div>
+                      <div class="modal-body step step-1">
+                          <center><img src="{{url_for('static', filename='img/alipay.jpg')}}">
+                          <small>Scan Use Alipay Aplication And Press Continue </small></center>
+                      </div>
+                      <div class="modal-body step step-2">
+                            <input hidden name="idusers" value="{{result.id}}">
+                            {% for row in products %}
+                            <input hidden name="idphone" value="{{row.id_phone}}">
+                            {% endfor %}
+                            <div class="form-group">
+                              <label>用户名</label>
+                              <div class="form-group">
+                                <input class="form-control" type="text" name="username" value="{{result.username}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>手机号码</label>
+                              <div class="form-group">
+                                <input class="form-control" type="text" name="phone" value="{{result.phonenumber}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>总量</label>
+                              <div class="form-group">
+                                <input hidden name="total" value="{{totalP}}">
+                                <input disabled class="form-control" type="text" value="¥ {{totalPrice}}">
+                              </div>
+                            </div>
+                            <div class="text-right">
+                              <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-send-o"></i> Confirm</button>
+                            </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-1', 2)">Continue</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+
+          <form class="modal multi-step" action="{{ url_for('weixin') }}" method="POST" id="demo-modal-2">
+              <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title step-1" data-step="1"><i class="fa fa-weixin"></i> 微信</h4>
+                          <h4 class="modal-title step-2" data-step="2">确认用户</h4>
+                      </div>
+                      <div class="modal-body step step-1">
+                          <center><img src="{{url_for('static', filename='img/weixin.jpg')}}">
+                          <small>Scan Use Weixin Aplication And Press Continue </small></center>
+                      </div>
+                      <div class="modal-body step step-2">
+                            <input hidden name="idusers" value="{{result.id}}">
+                            {% for row in products %}
+                            <input hidden name="idphone" value="{{row.id_phone}}">
+                            {% endfor %}
+                            <div class="form-group">
+                              <label>用户名</label>
+                              <div class="form-group">
+                                <input class="form-control" type="text" name="username" value="{{result.username}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>手机号码</label>
+                              <div class="form-group">
+                                <input class="form-control" type="text" name="phone" value="{{result.phonenumber}}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>总量</label>
+                              <div class="form-group">
+                                <input hidden name="total" value="{{totalP}}">
+                                <input disabled class="form-control" type="text" value="¥ {{totalPrice}}">
+                              </div>
+                            </div>
+                            <div class="text-right">
+                              <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-send-o"></i> Confirm</button>
+                            </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent('#demo-modal-2', 2)">Continue</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+
+
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <h3 class="block-title">
+                赔率
+                <small>完成付款 </small>
+              </h3>
+              {% include 'includes/_messages.html' %}
+              <div class="col-md-4 text-center">
+                <div class="panel panel-default panel-pricing text-center">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                        支付宝
+                        <span class="panel-pricing-popular"><i class="fa fa-thumbs-up"></i> Coming Soon</span>
+                      </h4>
+                  </div>
+                  <div class="panel-pricing-price">¥ <span class="digits">{{totalPrice}}</span></div>
+                  <div class="panel-body">
+                    <ul class="list-dotted">
+                      {% for row in products %}
+                      <li>{{row.phone}}</li>
+                      {% endfor %}
+                    </ul>
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#demo-modal-1">付款</button>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="panel panel-default panel-pricing panel-pricing-highlighted text-center">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                        银行卡
+                        <span class="panel-pricing-popular"><i class="fa fa-thumbs-up"></i> Popular</span>
+                      </h4>
+                  </div>
+                  <div class="panel-pricing-price">¥ <span class="digits">{{totalPrice}}</span> </div>
+                  <div class="panel-body">
+                    <ul class="list-dotted">
+                      {% for row in products %}
+                      <li>{{row.phone}}</li>
+                      {% endfor %}
+                    </ul>
+                    <form action="{{ url_for('pay') }}" method="POST">
+                      <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="{{ pub_key }}"
+                        data-amount=""
+                        data-name="Mre 商店"
+                        data-description="{{totalPrice}} 元"
+                        data-image=""
+                        data-locale="auto"
+                        data-currency="JPY">
+                      </script>
+                    </form>
+                    <!-- <a href="#" class="btn btn-primary btn-sm">PAY NOW</a> -->
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="panel panel-default panel-pricing text-center">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                        微信
+                        <span class="panel-pricing-popular"><i class="fa fa-thumbs-up"></i> Coming Soon</span>
+                    </h4>
+                  </div>
+                  <div class="panel-pricing-price">¥ <span class="digits">{{totalPrice}}</span></div>
+                  <div class="panel-body">
+                    <ul class="list-dotted">
+                      {% for row in products %}
+                      <li>{{row.phone}}</li>
+                      {% endfor %}
+                    </ul>
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#demo-modal-2">付款</button>
+
+                  </div>
+                </div>
+              </div>
+                <div class="col-xs-12">
+                    <p class="lead">支付方式：</p>
+                    <div class="social-media">
+                    <a href="#"><img src="{{url_for('static', filename='img/credit/visa.png')}}" alt="Visa"></a>
+                    <a href="#"><img src="{{url_for('static', filename='img/credit/mastercard.png')}}" alt="Mastercard"></a>
+                    <a href="#"><img src="{{url_for('static', filename='img/credit/american-express.png')}}" alt="American Express"></a>
+                    <!-- <a href="#"><img src="{{url_for('static', filename='img/credit/paypal2.png')}}" alt="Paypal"></a> -->
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                    </p>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/checkout?shipping={{session['uid']}}">
+                  <b><i class="fa fa-angle-left"></i></b> 返回
+                  <small>去运输</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

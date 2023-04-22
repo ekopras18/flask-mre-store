@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>About - Website</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <div class="page-header">
+            <h3>
+                关于我们
+                <small>欢迎观临 {{session.username}}</small>
+              </h3>
+          </div>
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <h3 class="block-title">
+                {{about.title}}
+              </h3>
+            <img src="{{url_for('static', filename='image/product/about/'+about.picture)}}" style="width:40%; height:30%;" class="img-responsive img-thumbnail pull-right m-l m-b">
+            <p>{{about.content}}</p>
+          </div>
+          <div class="block-highlight block-pd-h block-pd-sm">
+            <h3 class="block-title">
+                动机
+              </h3>
+            <p class="text-fancy">{{about.motive}}</p>
+          </div>
+
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+              <a href="/about" class="first">
+                  关于我们
+                  <small>欢迎观临</small>
+                </a>
+            </li>
+            <li>
+              <a href="/faq">
+                  常见问题
+                  <small>有问题吗？</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <title>购物车</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <h3 class="block-title">
+                购物车
+                <small>欢迎回来 </small>
+              </h3>
+              <div class="table-responsive-sm">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>产品</th>
+                      <th></th>
+                      <th>日期</th>
+                      <th>价钱</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for row in products %}
+                    <tr>
+                      <td>
+                        <a href="/viewproduct?view={{row.id_phone}}">
+                        <img class="img-responsive imgcart" src="{{url_for('static', filename='image/product/'+row.brand+'/'+row.picture)}}"/>
+                        </a>
+                      </td>
+                      <td><a href="/viewproduct?view={{row.id_phone}}"><b>{{row.phone}}</b></a></td>
+                      <td>{{row.date.strftime("%d-%b-%Y")}}</td>
+                      <td>¥ {{row.price}}</td>
+                      <td><a href="/removeFromCart?productId={{row.id_cart}}"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <div class="col-md-12">
+                  {% include 'includes/_messages.html' %}
+                </div>
+            </div>
+            <br><br><hr>
+            <div class="col-xs-2 col-md-6">
+
+            </div>
+            <div class="col-xs-10 col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h2 class="panel-title"><b>购物车总计</b></h2>
+                </div>
+                <div class="panel-body">
+                  <dl class="dl-horizontal">
+                    <dt>总计 </dt>
+                    <dd>¥ {{totalPrice}}</dd>
+                  </dl>
+                  <div class="pull-right">
+                    {% if result > 0 %}
+                    <a href="/checkout?shipping={{session['uid']}}"><button type="button" class="btn btn-primary">继续运输</button></a>
+                    {% else %}
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/viewproduct">
+                  <b><i class="fa fa-angle-left"></i></b> 返回
+                  <small>去逛街</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

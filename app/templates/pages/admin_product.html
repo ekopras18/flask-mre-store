@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <div class="row">
+    <div class="col-xs-6 col-sm-10">
+      <h2 class="block-title">
+          品牌 <br>
+          <small>品牌在这里</small>
+        </h2>
+    </div>
+    <div class="col-xs-6 col-sm-2">
+      <div class="page-header pull-right" style="border-bottom: none">
+      <a class="btn btn-primary" href="/add_product"><i class="fa fa-pencil-square-o"></i> 添加产品</a>
+    </div>
+    </div>
+  </div>
+  <div class="block block-border-bottom-grey block-pd-sm">
+          {% include 'includes/_messages.html' %}
+          <table id="product" class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>品牌</th>
+                <th>手机名字</th>
+                <th>可得到</th>
+                <th>日期</th>
+                <th>选项</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in product %}
+              <tr>
+                <td><i class="fa fa-angle-right"></i> <a href="/viewproduct?brand={{product.brand}}">{{product.brand}}</a></td>
+                <td>{{product.phone}}</td>
+                <td>{{product.available}}</td>
+                <td>{{product.time.strftime("%d-%b-%Y")}}</td>
+                <td>
+                  <div class="row">
+                      <div class="col-lg-4">
+                        <a href="/viewproduct?view={{product.id_phone}}" class="btn btn-xs btn-primary"><i class="fa fa-chevron-circle-right"></i></a>
+                      </div>
+                      <div class="col-lg-4">
+                        <a href="/edit-product?id={{product.id_phone}}" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></a>
+                      </div>
+                      <div class="col-lg-4">
+                        <form action="/delete-product/{{product.id_phone}}" method="post" >
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button type="submit" class="btn btn-xs btn-danger">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </form>
+                      </div>
+
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <!-- <h3 class="block-title">
+              What Makes Us Tick!
+            </h3> -->
+    </div>
+
+    </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/dashboard">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li class="active">
+              <a href="/product" class="first">
+                  列出产品
+                  <small>数据产品, 添加产品</small>
+                </a>
+            </li>
+            <li>
+              <a href="/datasales">
+                  销售业绩
+                  <small>销售数据, 概括</small>
+                </a>
+            </li>
+            <li>
+              <a href="/articles">
+                  文章
+                  <small> 文章设定 </small>
+                </a>
+            </li>
+            <li>
+              <a href="/datausers">
+                  所有用户
+                  <small> 查看详情  </small>
+                </a>
+            </li>
+            <li>
+              <a href="/setting">
+                  设置
+                  <small> 管理员设置，地址，通用设置，提前设定 </small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

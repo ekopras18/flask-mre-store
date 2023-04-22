@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>注册 - MRE商店</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <!-- INCLUDE HEAD -->
+  {% include 'head.html' %}
+</head>
+
+<!-- ======== @Region: body ======== -->
+
+<body class="fullscreen-centered page-register">
+  <!--Change the background class to alter background image, options are: benches, boots, buildings, city, metro -->
+  <div id="background-wrapper" class="benches" data-stellar-background-ratio="0.8">
+
+    <!-- ======== @Region: #content ======== -->
+    <div id="content">
+      <div class="header">
+        <div class="header-inner">
+          <!--navbar-branding/logo - hidden image tag & site name so things like Facebook to pick up, actual logo set via CSS for flexibility -->
+          <!-- <a class="navbar-brand center-block" href="/" title="Home">
+            <h1 class="hidden">
+                <img src="{{url_for('static', filename='img/logo.png')}}">
+                Mre商店
+              </h1>
+          </a> -->
+          <center><a href="/"><h3>MRE商店</h3></a></center>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                  注册
+                </h3>
+            </div>
+            <div class="panel-body">
+              {% from "includes/_formhelpers.html" import render_field %}
+              <form accept-charset="UTF-8" role="form" method="POST" action="/register">
+                <fieldset>
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-user"></i></span>
+                      {{render_field(form.username, class_="form-control")}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                      {{render_field(form.email, class_="form-control")}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+                      {{render_field(form.password, class_="form-control")}}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-fw fa-lock"></i></span>
+
+                      {{render_field(form.confirm, class_="form-control")}}
+                    </div>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                        <!-- <input name="remember" type="checkbox" value="Terms"> -->
+                        {{render_field(form.accept_tos)}}
+                        我同意 <a href="#">terms and conditions</a>.
+                      </label>
+                  </div>
+                  <input class="btn btn-lg btn-primary btn-block" type="submit" value="注册">
+                </fieldset>
+              </form>
+              <p class="m-b-0 m-t">已经注册？<a href="/login"> 这里登录。</a></p>
+              <div class="credits">
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </div>
+  </div>
+  <!-- Required JavaScript Libraries -->
+<!-- INCLUDE SCRIPT -->
+{% include 'scripts.html' %}
+</body>
+
+</html>

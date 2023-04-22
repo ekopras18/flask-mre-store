@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Wellcome</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+
+<!-- ======== @Region: body ======== -->
+
+<body class="page-about">
+  <!--Change the background class to alter background image, options are: benches, boots, buildings, city, metro -->
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+
+    <!-- ======== @Region: #navigation ======== -->
+    {% include "navbar.html" %}
+  </div>
+
+  <!-- ======== @Region: #content ======== -->
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <div class="block-title">
+              <h2>
+                  {{article.title}} <br>
+                  <small>
+                    <small> <i class="fa fa-calendar"></i> {{article.create_date.strftime("%b %d %Y")}}</small>
+                     <small> <i class="fa fa-user"></i> Write by <a href="#"> {{article.author}} </a></small></small>
+                   </h2>
+            </div>
+            {{ article.body | safe}}
+            <br>
+            <h5>
+                React this Article
+              </h5>
+              <a href="#" class="btn btn-more"><i class="fa fa-plus"></i> More</a>
+              <a href="#" class="btn btn-more i-right">More Right <i class="fa fa-plus"></i></a>
+              <a href="#" class="btn btn-more"><i class="fa fa-comment"></i> Comments (20)</a>
+            </div><br>
+            <!-- <form action="/comment" method="post">
+              <div class="form-group">
+                <input hidden name="idart" value="">
+                <textarea class="form-control" name="comment" rows="3" style="resize: none;"></textarea>
+              </div>
+            </form>
+            <div class="media">
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                 dolore magna aliqua. Ut enim ad min
+                m veniam, quis nostrud exercitation u
+                <br><a href="#">Replay</a> | <a href="#">Update</a> | <a href="#">Delete</a>
+              </div>
+            </div> -->
+            </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            {% if session.type == 1 %}
+            <li class="active">
+              <a href="/articles" class="first">
+                  Your Articles
+                  <small>Latest From All Post</small>
+                </a>
+            </li>
+            {% else %}
+            <li class="active">
+              <a href="/" class="first">
+                  Your Articles
+                  <small>Latest From All Post</small>
+                </a>
+            </li>
+            {% endif %}
+            {% for art_nav in artNav %}
+            <li>
+              <a href="/article/{{art_nav.title}}">
+                  <small>{{art_nav.title}}</small>
+                </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

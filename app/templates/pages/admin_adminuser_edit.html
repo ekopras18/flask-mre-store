@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <h3 class="block-title">
+            设置 <br>
+              <small><i class="fa fa-cogs"></i> 设置您的帐户</small>
+            </h3>
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-user"></i></a></li>
+              <li><a href="#tab2" data-toggle="tab"><i class="fa fa-unlock-alt"></i></a></li>
+              <li><a href="/setting">提前设定</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab1">
+                {% if result %}
+                {% from "includes/_formhelpers.html" import render_field %}
+                <form method="POST" action="/datausers?edit={{result.id}}">
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.username, class_="form-control", value=result.username, placeholder="新账号") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                        {{ render_field(form.email, class_="form-control", value=result.email, placeholder="新电子邮件") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                        {{ render_field(form.telp, class_="form-control", value=result.phonenumber, placeholder="新手机号码") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                  <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                  <i class="fa fa-send-o"></i> 提请</button>
+                </div>
+                </div>
+                </form>
+                {% endif%}
+              </div>
+              <div class="tab-pane fade" id="tab2">
+                {% if result %}
+                <form method="POST" action="/datausers?password={{result.id}}">
+                  <div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.password, class_="form-control", value=result.password, placeholder="新密码") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.confirm, class_="form-control", placeholder="又新密码") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                    <div class="checkbox">
+                      <label>
+                          {{render_field(form.accept_tos)}}
+                          我同意 <a href="#">terms and conditions</a>.
+                        </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                    <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                      <i class="fa fa-send-o"></i> 提请</button>
+                    </div>
+                  </div>
+                </form>
+                {% endif%}
+              </div>
+            </div>
+
+            </div>
+
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+              <a href="/datausers" class="first">
+                  退回
+                  <small>去所有用户</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

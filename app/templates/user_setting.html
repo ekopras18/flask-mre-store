@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>欢迎来到管理员</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container" id="about">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+          <h3 class="block-title">
+              设置
+              <small>你的帐户</small>
+            </h3>
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="user?user={{result.id}}" ><i class="fa fa-user"></i></a></li>
+              <li><a href="users?password={{result.id}}"><i class="fa fa-unlock-alt"></i></a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="tab1">
+                <!-- Content -->
+                <div class="form">
+                  <div id="sendmessage">{% include 'includes/_messages.html' %}</div>
+                  <div id="errormessage">{% from "includes/_formhelpers.html" import render_field %}</div>
+                  {% if result %}
+                  <form method="POST" action="/setting/user?user={{result.id}}">
+                    <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                        {{ render_field(form.username, class_="form-control", value=result.username, placeholder="新用户名") }}
+                        <!-- <input type="text" name="username" class="form-control" value="{{ result.username }}"  placeholder="New Username"> -->
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.email, class_="form-control", value=result.email, placeholder="新电子邮件") }}
+                        <!-- <input type="text" name="email" class="form-control" value="{{ result.email }}"  placeholder="New Email"> -->
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                    <div class="form-group">
+                      {{ render_field(form.consignee, class_="form-control", value=result.consignee, placeholder="新收货人") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.telp, class_="form-control", value=result.phonenumber, placeholder="新手机号码") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.prov, class_="form-control", value=result.provinces, placeholder="新省份") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-4">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.city, class_="form-control", value=result.city, placeholder="新城市") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.region, class_="form-control", value=result.region, placeholder="新区/县") }}
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.street, class_="form-control", value=result.street, placeholder="新街道/镇") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                    <div class="form-group">
+                      <div class="form-group">
+                      {{ render_field(form.detail, class_="form-control", value=result.d_address, placeholder="新详细地址") }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-12">
+                    <div class="text-right"><button class="btn btn-sm btn-primary" type="submit">
+                      <i class="fa fa-send-o"></i> 更新</button>
+                    </div>
+                  </div>
+                  </form>
+                  {% endif%}
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab2">
+
+              </div>
+            </div>
+
+
+
+            </div>
+
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li>
+              <a href="/user/{{session.username}}">
+                  管理员
+                  <small>{{session.username}}</small>
+                </a>
+            </li>
+            <li class="active">
+              <a href="/setting/user?user={{session.uid}}" class="first">
+                  设置
+                  <small>地址和高级设置</small>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>

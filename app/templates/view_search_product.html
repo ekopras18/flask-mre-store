@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Wellcome</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+ {% include "head.html" %}
+</head>
+<body class="page-about">
+  <div id="background-wrapper" class="buildings" data-stellar-background-ratio="0.8">
+    {% include "navbar.html" %}
+  </div>
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <!--main content-->
+        <div class="col-md-9 col-md-push-3">
+
+          <div class="block block-border-bottom-grey block-pd-sm">
+            <div class="col-md-12">
+              <div class="row">
+            <div class="col-xs-6 col-md-8">
+              <h3 class="block-title">
+                  PRODUCT <br>
+                  <small>{{ info }} </small>
+                </h3>
+            </div>
+            <div class="col-xs-6 col-md-4">
+              <form action="/products/search" method="get">
+                <input class="search_input" type="text" name="q" placeholder="Search..">
+              </form>
+            </div>
+        </div>
+            </div>
+
+            <div class="row">
+              {% for product in product %}
+        			<div class="col-xs-6 col-md-3">
+        				<!-- <div class="thumbnail "> -->
+        					<!-- <a href="/viewproduct?view={{product.id_phone}}">
+        							<div class="img-responsive underlay card-img-top"
+        									 style="background: url('static/image/product/{{product.brand}}/{{product.picture}}'); background-repeat:no-repeat; background-size: cover; height:150px;width: auto; ">
+        								 </div>
+        					</a> -->
+        					<a href="/viewproduct?view={{product.id_phone}}" class="overlay-wrapper">
+        							<img src="{{url_for('static', filename='image/product/'+product.brand+'/'+product.picture)}}" class="img-responsive underlay">
+        							<span class="overlay">
+        								<span class="overlay-content"> <span class="h4">{{product.brand}} </span> </span>
+        							</span>
+        						</a>
+        					<div class="caption">
+        						<a href="/viewproduct?view={{product.id_phone}}"><h5><b>{{product.phone}}</b></h5></a>
+        						<small><p>{{product.description | truncate(27) | safe}}</p></small>
+        						<p><a href="/addToCart?add={{product.id_phone}}" class="btn btn-more large"><small><i class="fa fa-cart-plus"></i>¥ {{product.price}}</small></a></p>
+        					</div>
+        				<!-- </div> -->
+        			</div>
+        			{% endfor %}
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="block-title">
+                    <small>Other Brand</small>
+                  </h3>
+                {% for br_nav in brandNav %}
+                <a href="/viewproduct?brand={{br_nav.brand}}" class="btn btn-default"><i class="fa fa-genderless"></i> {{br_nav.brand}}</a>
+                {% endfor %}
+              </div>
+            </div>
+
+
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-md-3 col-md-pull-9 sidebar visible-md-block visible-lg-block">
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+              <a href="/" class="first">
+                  <b><i class="fa fa-angle-left"></i></b> 返回
+                  <small>去首页</small>
+                </a>
+            </li>
+            {% for br_nav in brandNav %}
+            <li>
+              <a href="/viewproduct?brand={{br_nav.brand}}">
+                  <!-- <b><i class="fa fa-genderless"></i></b>  -->
+                  <small><b><i class="fa fa-genderless"></i> {{br_nav.brand}}</b></small>
+                </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "includes/_footer_dashboard.html" %}
+  {% include "scripts.html" %}
+</body>
+
+</html>
