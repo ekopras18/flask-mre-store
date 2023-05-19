@@ -4,7 +4,7 @@ from app import app
 
 
 app.config['MYSQL_HOST'] = 'mre.local'
-app.config['MYSQL_PORT'] = 3307
+app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'optima'
 app.config['MYSQL_PASSWORD'] = 'optim4$#@!'
 app.config['MYSQL_DB'] = 'flask_mre_store'
